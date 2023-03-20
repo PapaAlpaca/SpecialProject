@@ -19,6 +19,11 @@ public class Elevator : MonoBehaviour
         }
     }
 
+    public void move(bool move)
+    {
+        moving = move;
+    }
+
     public bool isMoving()
     {
         return moving;

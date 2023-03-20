@@ -4,20 +4,10 @@ using UnityEngine;
 
 public class ElevatorTrigger : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Elevator elevator;
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    void onTrigger()
-    {
-        
+        elevator.move(true);
     }
 }
