@@ -9,4 +9,5 @@
 4. Select [Add project from disk]
 5. Navigate to your repository and select [Add Project]
 6. Then select the project
-7. Once inside Unity, just click the play button near the top-middle of the screen
+7. Once inside Unity, click on the scene named "Title" in the bottom menu
+8. Then, click on the play button in the middle of the screen.
