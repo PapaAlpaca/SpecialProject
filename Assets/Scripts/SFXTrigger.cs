@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TriggerSFX : MonoBehaviour
+public class SFXTrigger : MonoBehaviour
 {
     [SerializeField] private AudioSource sound;
 
