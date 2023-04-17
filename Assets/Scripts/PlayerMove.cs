@@ -6,13 +6,16 @@ public class PlayerMove : MonoBehaviour
 {
     [SerializeField] CharacterController controller;
     [SerializeField] Transform groundCheck;
+    [SerializeField] Transform ceilingCheck;
     [SerializeField] LayerMask groundMask;
+    [SerializeField] LayerMask ceilingMask;
     [SerializeField] Elevator elevator;
     [SerializeField] float speed = 12f;
     private const float g = -9.81f;
     private Vector3 v;
     private float groundDist = 0.4f;
-    private bool grounded;
+    private float ceilingDist = 0.4f;
+    private bool grounded, ceilinged;
 
     void Start()
     {
@@ -27,9 +30,11 @@ public class PlayerMove : MonoBehaviour
         float z = Input.GetAxis("Vertical");
         controller.Move((transform.right*x + transform.forward*z)*speed*Time.deltaTime);
         grounded = Physics.CheckSphere(groundCheck.position,groundDist,groundMask);
-        if((grounded||elevator.isMoving())&&v.y<0) { v.y = -2f; }
-        v.y += g*Time.deltaTime;
-        if((grounded||elevator.isMoving())&&Input.GetKeyDown(KeyCode.Space)) { v.y += 10f; }
+        ceilinged = Physics.CheckSphere(ceilingCheck.position,ceilingDist,ceilingMask);
+        // TODO: Elevator Grounding
+        v.y = (grounded&&v.y<0)? -2f: (ceilinged&&v.y>0)? 0f: v.y;
+        v.y += 4*g*Time.deltaTime;
+        if(grounded&&Input.GetKeyDown(KeyCode.Space)) { v.y += 20f; }
         controller.Move(v*Time.deltaTime);
 
     }
@@ -38,8 +43,8 @@ public class PlayerMove : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.R))
         {
-            elevator.reset();
-            transform.position = new Vector3(0.0f, 2.5f, 0.0f);
+            // elevator.reset();
+            // transform.position = new Vector3(0.0f, 2.5f, 0.0f);
         }
     }
 }

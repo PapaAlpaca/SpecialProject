@@ -11,13 +11,12 @@ public class FloatingText : MonoBehaviour
 
     private void Start()
     {
-        mainCam = Camera.main.transform;
         transform.SetParent(worldSpaceCanvas);
     }
 
     void Update()
     {
-        transform.rotation = Quaternion.LookRotation(transform.position - mainCam.transform.position);
+        transform.rotation = Quaternion.LookRotation(transform.position - mainCam.position);
         transform.position = target.position + offset;
     }
 }

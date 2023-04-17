@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pickup : MonoBehaviour
 {
     [SerializeField] private GameObject displayText;
-    private boolean colliding = false;
+    private bool colliding = false;
 
     private void LateUpdate() {
         if(colliding && Input.GetKeyDown(KeyCode.E)) {
@@ -16,7 +16,7 @@ public class Pickup : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         displayText.SetActive(true);
-        if(other.name.equals("Player"))
+        if(other.name.Equals("Player"))
         {
             colliding = true;
         }

@@ -2,38 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Elevator : MonoBehaviour
-{
+public class Elevator : MonoBehaviour {
+    [SerializeField] private Transform leftDoor;
+    [SerializeField] private Transform rightDoor;
+    private float[] floors = {-15.0f, 0.0f};
+    private int currFloor = 1;
+    private bool doorsOpening = false;
     private bool moving = false;
-    private float dist = 0.0f;
+    private bool reachedFloor = true;
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.B)) {
-            moving = !moving;
+    void Update() {
+        if(moving) {
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition,
+                new Vector3(transform.localPosition.x, floors[currFloor], transform.localPosition.z), 2*Time.deltaTime);
         }
-        if(moving)
-        {
-            transform.Translate(0.0f, -0.01f, 0.0f);
-            dist += 0.01f;
+        if(doorsOpening) {
+            leftDoor.localPosition = Vector3.MoveTowards(leftDoor.localPosition,
+                new Vector3(-4.8f, leftDoor.localPosition.y, leftDoor.localPosition.z), Time.deltaTime);
+            rightDoor.localPosition = Vector3.MoveTowards(rightDoor.localPosition,
+                new Vector3(-7.2f, rightDoor.localPosition.y, rightDoor.localPosition.z), Time.deltaTime);
+        } else {
+            leftDoor.localPosition = Vector3.MoveTowards(leftDoor.localPosition,
+                new Vector3(-5.6f, leftDoor.localPosition.y, leftDoor.localPosition.z), Time.deltaTime);
+            rightDoor.localPosition = Vector3.MoveTowards(rightDoor.localPosition,
+                new Vector3(-6.4f, rightDoor.localPosition.y, rightDoor.localPosition.z), Time.deltaTime);
         }
     }
 
-    public void move(bool move)
-    {
-        moving = move;
+    void LateUpdate() {
+        if(!reachedFloor && moving && transform.localPosition.y == floors[currFloor]) {
+            reachedFloor = true;
+            moving = false;
+            doorsOpening = true;
+        }
     }
 
-    public bool isMoving()
-    {
-        return moving;
+    public void move(int floor) {
+        moving = true;
+        reachedFloor = false;
+        currFloor = (floor < 0)? 0: (floor > floors.Length-1)? floors.Length-1: floor;
     }
-
-    // Works with planes, not with cubes
-    public void reset()
-    {
-        moving = false;
-        transform.position = new Vector3(0.0f, 0.0f, -55.0f);
-        dist = 0.0f;
-    }
+    public int getFloor() { return currFloor; }
+    public void openDoors() { doorsOpening = true; }
+    public void closeDoors() { doorsOpening = false; }
+    public void toggleDoors() { doorsOpening = !doorsOpening; }
 }
