@@ -6,8 +6,8 @@ public class Elevator : MonoBehaviour {
     [SerializeField] private Transform leftDoor;
     [SerializeField] private Transform rightDoor;
     [SerializeField] private SoundHandler sfx;
-    private float[] floors = {-15.0f, 0.0f};
-    private int currFloor = 0;
+    private float[] floors = {1f, 15f};
+    private int currFloor = 1;
     private bool doorsOpening = false;
     private bool moving = false;
     private bool reachedFloor = true;
@@ -19,14 +19,14 @@ public class Elevator : MonoBehaviour {
         }
         if(doorsOpening) {
             leftDoor.localPosition = Vector3.MoveTowards(leftDoor.localPosition,
-                new Vector3(-4.8f, leftDoor.localPosition.y, leftDoor.localPosition.z), Time.deltaTime);
+                new Vector3(1.2f, leftDoor.localPosition.y, leftDoor.localPosition.z), Time.deltaTime);
             rightDoor.localPosition = Vector3.MoveTowards(rightDoor.localPosition,
-                new Vector3(-7.2f, rightDoor.localPosition.y, rightDoor.localPosition.z), Time.deltaTime);
+                new Vector3(-1.2f, rightDoor.localPosition.y, rightDoor.localPosition.z), Time.deltaTime);
         } else {
             leftDoor.localPosition = Vector3.MoveTowards(leftDoor.localPosition,
-                new Vector3(-5.6f, leftDoor.localPosition.y, leftDoor.localPosition.z), Time.deltaTime);
+                new Vector3(0.4f, leftDoor.localPosition.y, leftDoor.localPosition.z), Time.deltaTime);
             rightDoor.localPosition = Vector3.MoveTowards(rightDoor.localPosition,
-                new Vector3(-6.4f, rightDoor.localPosition.y, rightDoor.localPosition.z), Time.deltaTime);
+                new Vector3(-0.4f, rightDoor.localPosition.y, rightDoor.localPosition.z), Time.deltaTime);
         }
     }
 

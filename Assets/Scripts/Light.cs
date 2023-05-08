@@ -13,7 +13,7 @@ public class Light : MonoBehaviour
     [SerializeField] private Transform worldSpaceCanvas;
     [SerializeField] private Vector3 offset;
     private GameObject text;
-    private bool lit = false;
+    private bool lit = true;
     private bool colliding = false;
 
     private void Start() {

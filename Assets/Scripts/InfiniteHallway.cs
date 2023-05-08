@@ -16,7 +16,6 @@ public class InfiniteHallway : MonoBehaviour
     }
 
     void OnTriggerEnter() {
-        Debug.Log("adding more hallways");
         int increase = 1;
         GetComponent<BoxCollider>().center += new Vector3(increase*hallwayLength, 0.0f, 0.0f);
         for(int i = size; i < size + increase; i++) {
