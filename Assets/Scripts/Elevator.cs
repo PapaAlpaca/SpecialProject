@@ -5,8 +5,9 @@ using UnityEngine;
 public class Elevator : MonoBehaviour {
     [SerializeField] private Transform leftDoor;
     [SerializeField] private Transform rightDoor;
+    [SerializeField] private SoundHandler sfx;
     private float[] floors = {-15.0f, 0.0f};
-    private int currFloor = 1;
+    private int currFloor = 0;
     private bool doorsOpening = false;
     private bool moving = false;
     private bool reachedFloor = true;
@@ -31,6 +32,7 @@ public class Elevator : MonoBehaviour {
 
     void LateUpdate() {
         if(!reachedFloor && moving && transform.localPosition.y == floors[currFloor]) {
+            sfx.play(SoundHandler.MAIN);
             reachedFloor = true;
             moving = false;
             doorsOpening = true;
@@ -38,6 +40,7 @@ public class Elevator : MonoBehaviour {
     }
 
     public void move(int floor) {
+        sfx.play(SoundHandler.ELEVATOR);
         moving = true;
         reachedFloor = false;
         currFloor = (floor < 0)? 0: (floor > floors.Length-1)? floors.Length-1: floor;
