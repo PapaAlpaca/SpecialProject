@@ -5,7 +5,7 @@ using UnityEngine;
 public class InfiniteHallway : MonoBehaviour
 {
     [SerializeField] private GameObject hallwayPrefab;
-    private int size = 2;
+    private int size = 100;
     private float hallwayLength = 20.06f;
 
     void Start()
@@ -16,7 +16,8 @@ public class InfiniteHallway : MonoBehaviour
     }
 
     void OnTriggerEnter() {
-        int increase = 1;
+        Debug.Log("increasing");
+        int increase = 10;
         GetComponent<BoxCollider>().center += new Vector3(increase*hallwayLength, 0.0f, 0.0f);
         for(int i = size; i < size + increase; i++) {
             Instantiate(hallwayPrefab, transform.position + new Vector3(i*hallwayLength, 0.0f, 0.0f), Quaternion.identity);
