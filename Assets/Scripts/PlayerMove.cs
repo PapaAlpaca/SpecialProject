@@ -32,7 +32,7 @@ public class PlayerMove : MonoBehaviour
         ceilinged = Physics.CheckSphere(ceilingCheck.position,ceilingDist,ceilingMask);
         v.y = (grounded&&v.y<0)? -2f: (ceilinged&&v.y>0)? 0f: v.y;
         v.y += 4*g*Time.deltaTime;
-        if(grounded&&Input.GetKeyDown(KeyCode.Space)) { v.y += 20f; }
+        if(grounded&&Input.GetKeyDown(KeyCode.Space)) { v.y += 15f; }
         controller.Move(v*Time.deltaTime);
 
     }

@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Pause : MonoBehaviour
 {
     public static bool isPaused = false;
+    public static bool inSettings = false;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject settingsMenu;
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape)) {
+        if(Input.GetKeyDown(KeyCode.Escape) && !inSettings) {
             if(isPaused) {
                 resume();
             } else {
@@ -35,10 +38,12 @@ public class Pause : MonoBehaviour
     }
 
     public void loadMenu() {
-
+        inSettings = true;
+        pauseMenu.SetActive(false);
+        settingsMenu.SetActive(true);
     }
 
     public void quit() {
-        Application.Quit();
+        SceneManager.LoadScene(Menu.SCENE_MENU);
     }
 }

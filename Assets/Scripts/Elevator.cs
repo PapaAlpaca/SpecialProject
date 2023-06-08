@@ -6,7 +6,7 @@ public class Elevator : MonoBehaviour {
     [SerializeField] private Transform leftDoor;
     [SerializeField] private Transform rightDoor;
     [SerializeField] private SoundHandler sfx;
-    private float[] floors = {1f, 15f};
+    private float[] floors = {1f, 15f, 29f};
     private int currFloor = 1;
     private bool doorsOpening = false;
     private bool moving = false;
@@ -17,7 +17,7 @@ public class Elevator : MonoBehaviour {
             transform.localPosition = Vector3.MoveTowards(transform.localPosition,
                 new Vector3(transform.localPosition.x, floors[currFloor], transform.localPosition.z), 2*Time.deltaTime);
         }
-        if(doorsOpening) {
+        if(doorsOpening && transform.localPosition.y < 28) {
             leftDoor.localPosition = Vector3.MoveTowards(leftDoor.localPosition,
                 new Vector3(1.2f, leftDoor.localPosition.y, leftDoor.localPosition.z), Time.deltaTime);
             rightDoor.localPosition = Vector3.MoveTowards(rightDoor.localPosition,
